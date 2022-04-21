@@ -10,34 +10,43 @@ const loadData = () => JSON.parse(JSON.stringify(data));
 
 const DetailProduct = () => {
     const [mounted, setMounted] = useState(false)
-    const [products, setProducts] = useState({})
+    const [products, setProducts] = useState(loadData)
     const [product, setProduct] = useState({})
 
     const {idProduct} = useParams()
 
+
     useEffect(()=>{
         setMounted(true)
-        setProducts(loadData.instrumentos)
+
+        setProduct(products.instrumentos.find(e => e.id === idProduct))
+
     }, [mounted])
 
     return mounted &&(
         <div className='detailProductList'>
             <div className='detailProductSideOne'>
-                {/* <div className='detailProductImage'><img src={imagen} alt="" /></div> */}
+                <div className='detailProductImage'><img src={`http://localhost:3000/img/${product.imagen}`} alt="" /></div>
                 <div className='detailProductDescription'>
                     <h5>Descripción</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, neque quae nesciunt, assumenda asperiores incidunt hic, reiciendis cum harum libero eveniet saepe itaque est omnis in esse architecto totam laborum!</p>
+                    <p>{product.descripcion}</p>
                 </div>
             </div>
             <div className='detailProductSideTwo'>
-                <span className='productSoldOut'>25 vendidos</span>
-                <h3 className='productDetailTitle'>Instrumentos de percusión Niños set Musical con estuche</h3>
-                <p className='productPrice'>$ 2.649</p>
+                <span className='productSoldOut'>{product.cantidadVendida} vendidos</span>
+                <h3 className='productDetailTitle'>{product.product}</h3>
+                <p className='productPrice'>$ {product.precio}</p>
                 <div className='brandInfo'>
-                    <p>Marca: GADNIC</p>
-                    <p>Modelo: T01</p>
+                    <p>Marca: {product.marca}</p>
+                    <p>Modelo: {product.modelo}</p>
                 </div>
-                <span className='productShipping free'><img src={camion} alt="" /> Envío gratis</span>
+                {
+                    product.costoEnvio === "G" ?(
+                        <span className='productShipping free'><img src={camion} alt="" /> Envío gratis</span>
+                    ):(
+                        <span className='productShipping non-free'>Costo de envío Interior de Argentina: {product.costoEnvio}</span>
+                    )
+                }
                 <div className='mt-4'>
                     <Button variant="outline-primary">Agregar al carrito</Button>
                 </div>
