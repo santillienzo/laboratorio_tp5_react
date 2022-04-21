@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './DetailProduct.css'
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import camion from '../../assets/img/camion.png'
 import { useParams } from 'react-router-dom';
 
@@ -24,6 +24,8 @@ const DetailProduct = () => {
     }, [mounted])
 
     return mounted &&(
+        <Container>
+
         <div className='detailProductList'>
             <div className='detailProductSideOne'>
                 <div className='detailProductImage'><img src={`http://localhost:3000/img/${product.imagen}`} alt="" /></div>
@@ -52,6 +54,7 @@ const DetailProduct = () => {
                 </div>
             </div>
         </div>
+        </Container>
     );
 };
 

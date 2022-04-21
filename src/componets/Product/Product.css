@@ -4,6 +4,10 @@
     border-bottom: 1px solid #ccc;
 }
 
+.productInfoContainer{
+    padding-left: 20px;
+}
+
 .productTitle{
     font-weight: 200;
     font-size: 1.2rem;
